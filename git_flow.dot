@@ -1,0 +1,40 @@
+#!dot
+
+digraph G {
+  rankdir="UD";
+  compound=true;
+  splines=line;
+  bgcolor="transparent";
+  node[width=0.15, height=0.15, shape=point];
+  edge[weight=2, arrowhead=none];
+
+  subgraph cluster_master {
+    label = "master";
+    #master[group=master, shape="box", label="master"];
+    tag01 ->  tag02 -> tag1;
+    color=aqua;
+  }
+  subgraph cluster_hotfix {
+    label = "hotfix";
+    hotfix01 -> hotfix02 -> hotfix03;
+    color=red;
+  }
+  subgraph cluster_release {
+    label="release";
+    release01 -> release02 -> release03;
+    color=green;
+  }
+  subgraph cluster_develop {
+    label = "develop";
+    dev01 -> dev02 -> dev03;
+    color=yellow;
+  }
+  node[constraint=false];
+  tag01 -> hotfix01[constraint=false];
+  ##{ rank=same tag02 hotfix1 release01 dev02 }
+  #node[group=release]
+  #dev02 -> release1 -> release1bf1 -> release1bf2 -> tag1;
+  #node[group=develop]
+  #tag01 -> dev01 -> dev03 -> dev04 -> dev05; 
+     
+}
